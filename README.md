@@ -16,16 +16,10 @@ Model performance is compared using confusion matrices on a held-out testing set
 
 ## 1. Package Loading
 
-Libraries for importing data, cleaning data, plotting, and building machine-learning models.
+## 2. Data Loading and Check
 
-```r
-library(readr)        # Data import
-library(dplyr)        # Data manipulation
-library(ggplot2)      # Plotting
-library(stringr)      # String manipulation
-library(text2vec)     # Text processing and vectorization
-library(tokenizers)   # Tokenization
-library(tm)           # Text mining
-library(randomForest) # Random forest classifier
-library(h2o)          # For LSTM model
-library(gridExtra)    # For plot arrangement
+The initial dataset contains:
+
+message (string)
+
+sentiment (factor)
