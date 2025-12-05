@@ -59,7 +59,7 @@ plot_confusion_matrix <- function(cm_data, model_name){
 }
 ```
 
-## 5. Feature Engineering: Tokenization & TF-IDF
+## 5. Tokenization & TF-IDF
 
 The cleaned text is transformed into numerical form through:
 
@@ -98,6 +98,6 @@ head(df)
 ```
 
 ## 7. Data Visualization
-![Confusion Matrix](Confusion%20Matrix.png)
+![Data Visualization](Data%20Visualization.png)
 
 ![Data Visualization](Data%20Visualization.png)
