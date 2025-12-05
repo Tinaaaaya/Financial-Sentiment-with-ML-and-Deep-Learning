@@ -3,9 +3,7 @@
 A sentiment-analysis task using financial social-media comments.  
 The raw data and sentiment coding come from the replication package of:
 
-> Malo, P., Sinha, A., Korhonen, P., Wallenius, J., & Takala, P. (2014).  
-> *Good debt or bad debt: Detecting semantic orientations in economic texts.*  
-> Journal of the Association for Information Science and Technology, 65(4), 782–796.
+> Malo, P., Sinha, A., Korhonen, P., Wallenius, J., & Takala, P. (2014).  *Good debt or bad debt: Detecting semantic orientations in economic texts.*  Journal of the Association for Information Science and Technology, 65(4), 782–796.
 
 For demonstration, only the first 500 observations are used.
 
@@ -98,6 +96,54 @@ head(df)
 ```
 
 ## 7. Data Visualization
-![Data Visualization](Data%20Visualization.png)
 
-![Data Visualization](Data%20Visualization.png)
+<img width="485" height="160" alt="image" src="https://github.com/user-attachments/assets/3c94d1bc-60f3-4353-8ba5-31f24750d26a" />
+
+## 8. Model Implementation
+Logistic Regression (baseline)
+
+```{r}
+model_lr <- train(
+  x = as.matrix(dtm_train_tfidf),
+  y = train$sentiment,
+  method = "multinom"
+)
+```
+
+Random Forest
+
+```{r}
+rf_model <- randomForest(x = x_train, y = y_train, ntree = 300)
+```
+
+LSTM (via H2O)
+
+```{r}
+h2o.init()
+
+lstm_model <- h2o.deeplearning(
+  x = predictors,
+  y = response,
+  training_frame = train_h2o,
+  activation = "tanh",
+  hidden = c(128, 64),
+  epochs = 10,
+  l1 = 0.01,
+  l2 = 0.01
+)
+```
+
+## 9. Model Performance Comparison
+
+| Model               | Test Accuracy |
+|---------------------|---------------|
+| **Logistic Regression** | **84.7%** |
+| LSTM                | 83.7%         |
+| Random Forest       | 80.6%         |
+
+
+Logistic Regression performs best.
+This is common in TF-IDF text tasks due to strong linear separability.
+
+<img width="2020" height="880" alt="image" src="https://github.com/user-attachments/assets/1494503d-4408-4f79-94ed-0e9dad07955d" />
+
